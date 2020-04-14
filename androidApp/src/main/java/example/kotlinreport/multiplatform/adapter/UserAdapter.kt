@@ -15,9 +15,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.chauthai.swipereveallayout.SwipeRevealLayout
 import com.chauthai.swipereveallayout.ViewBinderHelper
 import example.kotlinreport.multiplatform.R
-import org.greeting.config.AppConfig
-import org.greeting.model.SexType
-import org.greeting.model.User
+import example.kotlinreport.shared.config.AppConfig
+import example.kotlinreport.shared.model.SexType
+import example.kotlinreport.shared.model.User
 import java.io.File
 import java.io.FileInputStream
 

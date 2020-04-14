@@ -20,5 +20,5 @@ pluginManagement {
     }
 }
 
-include(":greeting")
+include(":shared")
 include(":androidApp")

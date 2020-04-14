@@ -9,14 +9,14 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import example.kotlinreport.multiplatform.adapter.UserAdapter
-import org.greeting.common.paginator.AndroidPaginator
-import org.greeting.common.paginator.Paginator
-import org.greeting.common.recyclerview.listener.OnScrollLoadMoreRecyclerViewListener
-import org.greeting.config.AppConfig
-import org.greeting.db.AndroidDatabaseManager
-import org.greeting.db.DatabaseManager
-import org.greeting.model.SexType
-import org.greeting.model.User
+import example.kotlinreport.shared.common.paginator.AndroidPaginator
+import example.kotlinreport.shared.common.paginator.Paginator
+import example.kotlinreport.shared.common.recyclerview.listener.OnScrollLoadMoreRecyclerViewListener
+import example.kotlinreport.shared.config.AppConfig
+import example.kotlinreport.shared.db.AndroidDatabaseManager
+import example.kotlinreport.shared.db.DatabaseManager
+import example.kotlinreport.shared.model.SexType
+import example.kotlinreport.shared.model.User
 import java.util.*
 import kotlin.collections.ArrayList
 
