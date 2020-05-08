@@ -1,0 +1,15 @@
+CREATE TABLE User(
+    id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+	name TEXT NOT NULL,
+    sex INTEGER AS Short NOT NULL,
+    avatar TEXT NOT NULL
+);
+
+insertItem:
+INSERT OR REPLACE INTO User(name, sex, avatar) VALUES(?,?,?);
+
+selectAll:
+SELECT * FROM User;
+
+selectById:
+SELECT * FROM User WHERE id = ?;

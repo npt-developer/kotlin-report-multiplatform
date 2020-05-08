@@ -5,8 +5,11 @@ import android.content.Context
 import android.database.Cursor
 import android.database.DatabaseUtils
 import android.util.Log
+import com.squareup.sqldelight.android.AndroidSqliteDriver
+import com.squareup.sqldelight.db.SqlDriver
 import example.kotlinreport.shared.model.SexType
 import example.kotlinreport.shared.model.User
+import example.kotlinreport.shared.MyDatabase
 
 public class AndroidDatabaseManager: DatabaseManager {
     private val mContext: Context
@@ -27,6 +30,7 @@ public class AndroidDatabaseManager: DatabaseManager {
 
     constructor(context: Context): super() {
         this.mContext = context.applicationContext
+
     }
 
     override fun countUser(): Long {
@@ -37,6 +41,15 @@ public class AndroidDatabaseManager: DatabaseManager {
 
     override fun getUserList(offset: Long, limit: Long): ArrayList<User> {
         synchronized(AndroidDatabaseManager::class) {
+
+            var driver: SqlDriver = AndroidSqliteDriver(MyDatabase.Schema, this.mContext, "db4")
+            val database = MyDatabase(driver)
+            val userQueries = database.userQueries
+            userQueries.insertItem("user 1", 1, "avatar")
+            val list1: List<User>  = userQueries.selectById(1, mapper = {id, name, sex, avatar -> User(id, name, SexType.valueOf(sex.toInt()), avatar) }).executeAsList()
+            Log.d("kakakka", list1.get(0).name)
+
+
             var list: ArrayList<User> = ArrayList()
 
             var db = getDbInstance(this.mContext)!!.readableDatabase

@@ -40,6 +40,7 @@ class MainActivity : AppCompatActivity(),
 
         initRefresh()
         initRecyclerView()
+//        val driver: SqlDriver = AndroidSqliteDriver(Data)
     }
 
     private fun onActionDelete(user: User, position: Int) {

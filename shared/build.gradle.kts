@@ -3,6 +3,7 @@ import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
 plugins {
     id( "com.android.library")
     id("org.jetbrains.kotlin.multiplatform")
+    id("com.squareup.sqldelight")
 }
 
 group = "example.kotlinreport.shared"
@@ -21,6 +22,16 @@ android {
     }
 }
 
+sqldelight {
+    database("MyDatabase") {
+        packageName = "example.kotlinreport.shared"
+        sourceFolders = listOf("sqldelight")
+//        schemaOutputDirectory = file("build/dbs")
+//        dependency(project(":androidApp"))
+    }
+    linkSqlite = false
+}
+
 dependencies {
     // Specify Kotlin/JVM stdlib dependency.
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7")
@@ -28,6 +39,7 @@ dependencies {
     implementation("androidx.core:core-ktx:1.2.0")
     implementation("androidx.recyclerview:recyclerview:1.1.0")
 
+    implementation("com.squareup.sqldelight:android-driver:1.2.2")
 
     androidTestImplementation("junit:junit:4.12")
     androidTestImplementation("org.jetbrains.kotlin:kotlin-test")
@@ -62,6 +74,9 @@ kotlin {
              implementation("org.jetbrains.kotlin:kotlin-test-annotations-common")
          }
       }
+    }
+    sourceSets["iosMain"].dependencies {
+        implementation("com.squareup.sqldelight:native-driver:1.2.2")
     }
 }
 

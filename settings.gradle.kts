@@ -10,6 +10,10 @@ pluginManagement {
             if (requested.id.id == "org.jetbrains.kotlin.multiplatform") {
                 useModule("org.jetbrains.kotlin:kotlin-gradle-plugin:1.3.61")
             }
+
+            if (requested.id.id == "com.squareup.sqldelight") {
+                useModule("com.squareup.sqldelight:gradle-plugin:1.2.1")
+            }
         }
     }
 
