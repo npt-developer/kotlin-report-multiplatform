@@ -1,106 +1,45 @@
 package example.kotlinreport.shared.db
 
-import android.content.ContentValues
 import android.content.Context
-import android.database.Cursor
-import android.database.DatabaseUtils
 import android.util.Log
 import com.squareup.sqldelight.android.AndroidSqliteDriver
 import com.squareup.sqldelight.db.SqlDriver
 import example.kotlinreport.shared.model.SexType
 import example.kotlinreport.shared.model.User
 import example.kotlinreport.shared.MyDatabase
+import example.kotlinreport.shared.UserQueries
+import kotlin.collections.ArrayList
 
 public class AndroidDatabaseManager: DatabaseManager {
-    private val mContext: Context
 
-    companion object {
-        @JvmStatic
-        private var mDbInstance: DatabaseHelper? = null
-        @JvmStatic
-        public fun getDbInstance(context: Context): DatabaseHelper? {
-            synchronized(AndroidDatabaseManager::class) {
-                if (mDbInstance == null) {
-                    mDbInstance = DatabaseHelper(context.applicationContext)
-                }
-                return mDbInstance
-            }
-        }
-    }
+    private val mUserQueries: UserQueries;
 
     constructor(context: Context): super() {
-        this.mContext = context.applicationContext
+        val driver: SqlDriver = AndroidSqliteDriver(MyDatabase.Schema, context.applicationContext, "db")
+        val database = MyDatabase(driver)
+        this.mUserQueries = database.userQueries
 
     }
 
     override fun countUser(): Long {
         synchronized(AndroidDatabaseManager::class) {
-            return DatabaseUtils.queryNumEntries(getDbInstance(this.mContext)!!.readableDatabase, User.TABLE_NAME)
+            return this.mUserQueries.selectAll(mapper = {id, name, sex, avatar -> User(id, name, SexType.valueOf(sex.toInt()), avatar) }).executeAsList().size.toLong()
         }
     }
 
     override fun getUserList(offset: Long, limit: Long): ArrayList<User> {
         synchronized(AndroidDatabaseManager::class) {
+            val list: List<User>  = this.mUserQueries.selectAll(mapper = {id, name, sex, avatar -> User(id, name, SexType.valueOf(sex.toInt()), avatar) }).executeAsList();
+            val result: ArrayList<User> = ArrayList(list)
 
-            var driver: SqlDriver = AndroidSqliteDriver(MyDatabase.Schema, this.mContext, "db4")
-            val database = MyDatabase(driver)
-            val userQueries = database.userQueries
-            userQueries.insertItem("user 1", 1, "avatar")
-            val list1: List<User>  = userQueries.selectById(1, mapper = {id, name, sex, avatar -> User(id, name, SexType.valueOf(sex.toInt()), avatar) }).executeAsList()
-            Log.d("kakakka", list1.get(0).name)
-
-
-            var list: ArrayList<User> = ArrayList()
-
-            var db = getDbInstance(this.mContext)!!.readableDatabase
-            val columns: Array<String> = arrayOf(
-                    User.COLUMN_ID_NAME,
-                    User.COLUMN_NAME_NAME,
-                    User.COLUMN_SEX_NAME,
-                    User.COLUMN_AVATAR_NAME
-            )
-            var cursor: Cursor = db.query(
-                    User.TABLE_NAME,
-                    columns,
-                    null,
-                    null,
-                    null,
-                    null,
-                    "${User.COLUMN_ID_NAME} DESC",
-                    "${offset},${limit}"
-            )
-            if (cursor.moveToFirst()) {
-                do {
-                    list.add(User(
-                            cursor.getLong(cursor.getColumnIndex(User.COLUMN_ID_NAME)),
-                            cursor.getString(cursor.getColumnIndex(User.COLUMN_NAME_NAME)),
-                            SexType.valueOf(cursor.getInt(cursor.getColumnIndex(User.COLUMN_SEX_NAME))),
-                            cursor.getString(cursor.getColumnIndex(User.COLUMN_AVATAR_NAME))
-                    ))
-                } while (cursor.moveToNext())
-            }
-            cursor.close()
-            return list
+            return result
         }
     }
 
-    override fun insertUser(user: User): Long {
+    override fun insertUser(user: User): Unit {
         Log.d("DatabaseManager", "Insert user")
         synchronized(DatabaseManager::class) {
-            var db = getDbInstance(this.mContext)!!.writableDatabase
-            db.beginTransaction()
-
-            var contentValues: ContentValues = ContentValues()
-            contentValues.put(User.COLUMN_NAME_NAME, user.name)
-            contentValues.put(User.COLUMN_SEX_NAME, user.sex.value.toString())
-            contentValues.put(User.COLUMN_AVATAR_NAME, user.avatar)
-
-            val result: Long = db.insert(User.TABLE_NAME, null, contentValues)
-            Log.d("DatabaseManager", "result ${result}")
-
-            db.setTransactionSuccessful()
-            db.endTransaction()
-            return result
+            this.mUserQueries.insertItem(user.name, user.sex.value.toShort(), user.avatar!!)
         }
     }
 }

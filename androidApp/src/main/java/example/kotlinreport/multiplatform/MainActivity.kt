@@ -40,7 +40,6 @@ class MainActivity : AppCompatActivity(),
 
         initRefresh()
         initRecyclerView()
-//        val driver: SqlDriver = AndroidSqliteDriver(Data)
     }
 
     private fun onActionDelete(user: User, position: Int) {
@@ -154,7 +153,7 @@ class MainActivity : AppCompatActivity(),
                 sex = SexType.FEMALE
             }
             this.mDatabaseManager.insertUser(
-                User(null, "Test ${total + i}", sex, null)
+                User(null, "Test ${total + i}", sex, "user.jpg")
             )
             i++
         }
