@@ -20,22 +20,16 @@ public class IosDatabaseManager: DatabaseManager {
     }
 
     override fun countUser(): Long {
-        synchronized(IosDatabaseManager::class) {
-            return this.mUserQueries.countUser().executeAsOne()
-        }
+        return this.mUserQueries.countUser().executeAsOne()
     }
 
     override fun getUserList(offset: Long, limit: Long): ArrayList<User> {
-        synchronized(IosDatabaseManager::class) {
-            val list: List<User>  = this.mUserQueries.selectAll(limit, offset, mapper = {id, name, sex, avatar -> User(id, name, SexType.valueOf(sex.toInt()), avatar) }).executeAsList();
+        val list: List<User>  = this.mUserQueries.selectAll(limit, offset, mapper = {id, name, sex, avatar -> User(id, name, SexType.valueOf(sex.toInt()), avatar) }).executeAsList();
 
-            return ArrayList(list)
-        }
+        return ArrayList(list)
     }
 
     override fun insertUser(user: User): Unit {
-        synchronized(IosDatabaseManager::class) {
-            this.mUserQueries.insertItem(user.name, user.sex.value.toShort(), user.avatar!!)
-        }
+        this.mUserQueries.insertItem(user.name, user.sex.value.toShort(), user.avatar!!)
     }
 }
