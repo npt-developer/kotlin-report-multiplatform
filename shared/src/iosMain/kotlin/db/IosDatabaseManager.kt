@@ -20,13 +20,13 @@ public class IosDatabaseManager: DatabaseManager {
     }
 
     override fun countUser(): Long {
-        synchronized(AndroidDatabaseManager::class) {
+        synchronized(IosDatabaseManager::class) {
             return this.mUserQueries.countUser().executeAsOne()
         }
     }
 
     override fun getUserList(offset: Long, limit: Long): ArrayList<User> {
-        synchronized(AndroidDatabaseManager::class) {
+        synchronized(IosDatabaseManager::class) {
             val list: List<User>  = this.mUserQueries.selectAll(limit, offset, mapper = {id, name, sex, avatar -> User(id, name, SexType.valueOf(sex.toInt()), avatar) }).executeAsList();
 
             return ArrayList(list)
@@ -34,7 +34,7 @@ public class IosDatabaseManager: DatabaseManager {
     }
 
     override fun insertUser(user: User): Unit {
-        synchronized(DatabaseManager::class) {
+        synchronized(IosDatabaseManager::class) {
             this.mUserQueries.insertItem(user.name, user.sex.value.toShort(), user.avatar!!)
         }
     }
