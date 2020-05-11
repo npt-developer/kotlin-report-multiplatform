@@ -1,6 +1,6 @@
 package example.kotlinreport.shared.db
 
-import com.squareup.sqldelight.drivers.ios.NativeSqliteDriver
+import com.squareup.sqldelight.native.NativeSqliteDriver
 import com.squareup.sqldelight.db.SqlDriver
 import example.kotlinreport.shared.model.SexType
 import example.kotlinreport.shared.model.User

@@ -24,5 +24,9 @@ pluginManagement {
     }
 }
 
+// https://cashapp.github.io/sqldelight/multiplatform/
+// Multiplatform requires the gradle metadata feature, which you need to enable via the settings.gradle file in the project root
+enableFeaturePreview("GRADLE_METADATA")
+
 include(":shared")
 include(":androidApp")

@@ -39,7 +39,7 @@ dependencies {
     implementation("androidx.core:core-ktx:1.2.0")
     implementation("androidx.recyclerview:recyclerview:1.1.0")
 
-    implementation("com.squareup.sqldelight:android-driver:1.2.2")
+    implementation("com.squareup.sqldelight:android-driver:1.3.0")
 
     androidTestImplementation("junit:junit:4.12")
     androidTestImplementation("org.jetbrains.kotlin:kotlin-test")
@@ -66,7 +66,7 @@ kotlin {
       commonMain {
          dependencies {
             implementation( "org.jetbrains.kotlin:kotlin-stdlib-common")
-             implementation("com.squareup.sqldelight:runtime:1.2.2")
+             implementation("com.squareup.sqldelight:runtime:1.3.0")
          }
       }
       commonTest {
@@ -77,7 +77,7 @@ kotlin {
       }
     }
     sourceSets["iosMain"].dependencies {
-        implementation("com.squareup.sqldelight:native-driver:1.2.2")
+        implementation("com.squareup.sqldelight:native-driver:1.3.0")
     }
 }
 
