@@ -9,7 +9,10 @@ insertItem:
 INSERT OR REPLACE INTO User(name, sex, avatar) VALUES(?,?,?);
 
 selectAll:
-SELECT * FROM User;
+SELECT * FROM User LIMIT ? OFFSET ?;
+
+countUser:
+SELECT count(*) FROM User;
 
 selectById:
 SELECT * FROM User WHERE id = ?;

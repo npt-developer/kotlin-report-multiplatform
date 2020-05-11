@@ -1,7 +1,6 @@
 package example.kotlinreport.shared.db
 
-import android.content.Context
-import com.squareup.sqldelight.android.AndroidSqliteDriver
+import com.squareup.sqldelight.native.NativeSqliteDriver
 import com.squareup.sqldelight.db.SqlDriver
 import example.kotlinreport.shared.model.SexType
 import example.kotlinreport.shared.model.User
@@ -9,12 +8,12 @@ import example.kotlinreport.shared.MyDatabase
 import example.kotlinreport.shared.UserQueries
 import kotlin.collections.ArrayList
 
-public class AndroidDatabaseManager: DatabaseManager {
+public class IosDatabaseManager: DatabaseManager {
 
     private val mUserQueries: UserQueries;
 
     constructor(context: Context): super() {
-        val driver: SqlDriver = AndroidSqliteDriver(MyDatabase.Schema, context.applicationContext, "db")
+        val driver: SqlDriver = NativeSqliteDriver(MyDatabase.Schema, "db")
         val database = MyDatabase(driver)
         this.mUserQueries = database.userQueries
 
