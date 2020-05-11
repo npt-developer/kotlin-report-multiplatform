@@ -12,7 +12,7 @@ public class IosDatabaseManager: DatabaseManager {
 
     private val mUserQueries: UserQueries;
 
-    constructor(context: Context): super() {
+    constructor(): super() {
         val driver: SqlDriver = NativeSqliteDriver(MyDatabase.Schema, "db")
         val database = MyDatabase(driver)
         this.mUserQueries = database.userQueries
