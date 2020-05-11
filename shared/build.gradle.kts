@@ -97,16 +97,16 @@ tasks.register("copyFramework") {
     }
 }
 
-tasks.register("iosTest")  {
-    val  device = project.findProperty("iosDevice") as? String ?: "iPhone 8"
-    dependsOn("linkDebugTestIos")
-    group = JavaBasePlugin.VERIFICATION_GROUP
-    description = "Runs tests for target 'ios' on an iOS simulator"
-
-    doLast {
-        val  binary = (kotlin.targets["ios"] as KotlinNativeTarget).binaries.getTest("DEBUG").outputFile
-        exec {
-            commandLine("xcrun", "simctl", "spawn", "--standalone", device, binary.absolutePath)
-        }
-    }
-}
+//tasks.register("iosTest")  {
+//    val  device = project.findProperty("iosDevice") as? String ?: "iPhone 8"
+//    dependsOn("linkDebugTestIos")
+//    group = JavaBasePlugin.VERIFICATION_GROUP
+//    description = "Runs tests for target 'ios' on an iOS simulator"
+//
+//    doLast {
+//        val  binary = (kotlin.targets["ios"] as KotlinNativeTarget).binaries.getTest("DEBUG").outputFile
+//        exec {
+//            commandLine("xcrun", "simctl", "spawn", "--standalone", device, binary.absolutePath)
+//        }
+//    }
+//}

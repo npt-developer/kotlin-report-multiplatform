@@ -12,7 +12,7 @@ pluginManagement {
             }
 
             if (requested.id.id == "com.squareup.sqldelight") {
-                useModule("com.squareup.sqldelight:gradle-plugin:1.2.1")
+                useModule("com.squareup.sqldelight:gradle-plugin:1.3.0")
             }
         }
     }
