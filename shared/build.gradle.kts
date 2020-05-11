@@ -66,6 +66,7 @@ kotlin {
       commonMain {
          dependencies {
             implementation( "org.jetbrains.kotlin:kotlin-stdlib-common")
+             implementation("com.squareup.sqldelight:runtime:1.2.2")
          }
       }
       commonTest {
