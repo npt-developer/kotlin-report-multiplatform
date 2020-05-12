@@ -9,21 +9,21 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import example.kotlinreport.multiplatform.adapter.UserAdapter
-import example.kotlinreport.shared.common.paginator.AndroidPaginator
-import example.kotlinreport.shared.common.paginator.Paginator
-import example.kotlinreport.shared.common.recyclerview.listener.OnScrollLoadMoreRecyclerViewListener
-import example.kotlinreport.shared.config.AppConfig
-import example.kotlinreport.shared.db.AndroidDatabaseManager
-import example.kotlinreport.shared.db.DatabaseManager
-import example.kotlinreport.shared.model.SexType
-import example.kotlinreport.shared.model.User
+import example.kotlinreport.multiplatform.shared.db.UserDao
+import example.kotlinreport.multiplatform.shared.common.paginator.AndroidPaginator
+import example.kotlinreport.multiplatform.shared.common.paginator.Paginator
+import example.kotlinreport.multiplatform.shared.common.recyclerview.listener.OnScrollLoadMoreRecyclerViewListener
+import example.kotlinreport.multiplatform.shared.config.AppConfig
+import example.kotlinreport.multiplatform.shared.myAppContext
+import example.kotlinreport.multiplatform.shared.model.SexType
+import example.kotlinreport.multiplatform.shared.model.User
 import java.util.*
 import kotlin.collections.ArrayList
 
 class MainActivity : AppCompatActivity(),
     SwipeRefreshLayout.OnRefreshListener {
 
-    private lateinit var mDatabaseManager: DatabaseManager;
+    private lateinit var mUserDao: UserDao
     private lateinit var mUsers: ArrayList<User>
     private lateinit var mUserAdapter: UserAdapter
     private lateinit var mOnLoadMore: OnScrollLoadMoreRecyclerViewListener
@@ -60,11 +60,12 @@ class MainActivity : AppCompatActivity(),
     }
 
     private fun initDatabaseManager() {
-        this.mDatabaseManager = AndroidDatabaseManager(this);
+        myAppContext = this.applicationContext
+        this.mUserDao = UserDao();
     }
 
     private fun initPaginatorUser() {
-        val total: Long = this.mDatabaseManager.countUser()
+        val total: Long = this.mUserDao.countUser()
         Log.d("total", total.toString())
         mPaginator = AndroidPaginator(1, AppConfig.Pagination.PAGE_SIZE, total)
     }
@@ -75,7 +76,7 @@ class MainActivity : AppCompatActivity(),
     }
 
     private fun initRecyclerView() {
-        mUsers = this.mDatabaseManager.getUserList(mPaginator.getOffset(), mPaginator.mPageSize)
+        mUsers = this.mUserDao.getUserList(mPaginator.getOffset(), mPaginator.mPageSize)
         Log.d("Users", mUsers.size.toString())
         if (mPaginator.hasNextPage()) {
             mPaginator.mPage++
@@ -119,7 +120,7 @@ class MainActivity : AppCompatActivity(),
             if (!mSwipeRefreshLayoutMain.isRefreshing) {
                 mUserAdapter.closeLoading()
             }
-            val users = this.mDatabaseManager.getUserList(mPaginator.getOffset(), mPaginator.mPageSize)
+            val users = this.mUserDao.getUserList(mPaginator.getOffset(), mPaginator.mPageSize)
             Log.d("addAllUser", users.size.toString())
             mUserAdapter.addAll(users)
 
@@ -141,7 +142,7 @@ class MainActivity : AppCompatActivity(),
     }
 
     private fun fakeData(): Unit {
-        val total: Long = this.mDatabaseManager.countUser()
+        val total: Long = this.mUserDao.countUser()
         var i: Long = 1
         var random: Random = Random()
         while (i < 11) {
@@ -152,7 +153,7 @@ class MainActivity : AppCompatActivity(),
             } else {
                 sex = SexType.FEMALE
             }
-            this.mDatabaseManager.insertUser(
+            this.mUserDao.insertUser(
                 User(null, "Test ${total + i}", sex, "user.jpg")
             )
             i++

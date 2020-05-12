@@ -1,0 +1,79 @@
+plugins {
+    id 'kotlin-multiplatform'
+    id 'kotlinx-serialization'
+    id 'com.squareup.sqldelight'
+}
+
+apply from: 'android.gradle'
+
+kotlin {
+    android()
+    if (project.findProperty("device")?.toBoolean() ?: false) {
+        iosArm64('ios') {
+            binaries {
+                framework()
+            }
+        }
+    } else {
+        iosX64('ios') {
+            binaries {
+                framework()
+            }
+        }
+    }
+
+    sourceSets {
+        commonMain {
+            dependencies {
+                implementation rootProject.ext.kotlinCommon
+                implementation rootProject.ext.coroutineCommon
+                implementation rootProject.ext.serializationCommon
+                implementation rootProject.ext.ktorClient
+                implementation rootProject.ext.ktorClientJson
+                implementation "com.squareup.sqldelight:coroutines-extensions:1.2.0"
+            }
+        }
+        androidMain {
+            dependencies {
+            }
+        }
+        iosMain {
+            dependencies {
+                implementation rootProject.ext.coroutineNative
+                implementation rootProject.ext.serializationNative
+                implementation rootProject.ext.ktorClientIos
+                implementation rootProject.ext.ktorClientJsonIos
+                implementation rootProject.ext.delightIos
+            }
+        }
+
+    }
+}
+
+// sql delight
+sqldelight {
+    MyDatabase {
+        packageName = "example.kotlinreport.multiplatform.shared"
+        sourceFolders = ["sqldelight"]
+    }
+}
+
+// ios task
+task packForXcode {
+    def buildType = project.findProperty("kotlin.build.type") ?: "DEBUG"
+    def target = project.findProperty("kotlin.target") ?: "ios"
+    def framework = kotlin.targets."$target".compilations.main.target.binaries.findFramework("", buildType)
+
+    dependsOn framework.linkTask
+
+    doLast {
+        copy {
+            from framework.outputFile.parent
+            into framework.outputFile.parentFile
+            include 'data.framework/**'
+            include 'data.framework.dSYM'
+        }
+    }
+}
+
+tasks.build.dependsOn packForXcode

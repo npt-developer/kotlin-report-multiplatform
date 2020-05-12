@@ -1,7 +1,7 @@
 package example.kotlinreport.multiplatform.application
 
 import android.app.Application
-import example.kotlinreport.shared.config.AppConfig
+import example.kotlinreport.multiplatform.shared.config.AppConfig
 import com.facebook.stetho.Stetho
 
 class MyApplication : Application() {
