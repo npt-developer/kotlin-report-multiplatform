@@ -1,7 +1,9 @@
 package example.kotlinreport.multiplatform.shared.model
 import kotlin.jvm.JvmStatic
+import kotlinx.serialization.Serializable
 
-class User(var id: Long?, var name: String, var sex: SexType, var avatar: String?) {
+@Serializable
+data class User(var id: Long?, var name: String, var sex: SexType, var avatar: String?) {
 
     companion object {
         @JvmStatic
