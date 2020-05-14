@@ -10,6 +10,6 @@ import Foundation
 class Userx
 {
     var name: String = ""
-    var sex: String = "1"
+    var sex: String = ""
     var avatar: String = ""
 }

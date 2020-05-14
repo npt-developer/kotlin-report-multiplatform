@@ -7,8 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		2614C5F524553F940035CD4C /* Person.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2614C5F424553F940035CD4C /* Person.swift */; };
-		2614C5F7245540660035CD4C /* DBHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2614C5F6245540660035CD4C /* DBHelper.swift */; };
 		2614C5FA24555A420035CD4C /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 2614C5F924555A310035CD4C /* libsqlite3.tbd */; };
 		C991C8F5246CFB5200B97659 /* shared.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C991C8F4246CFB5200B97659 /* shared.framework */; };
 		C991C8F6246CFB5200B97659 /* shared.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C991C8F4246CFB5200B97659 /* shared.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -46,8 +44,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		2614C5F424553F940035CD4C /* Person.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Person.swift; sourceTree = "<group>"; };
-		2614C5F6245540660035CD4C /* DBHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DBHelper.swift; sourceTree = "<group>"; };
 		2614C5F924555A310035CD4C /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
 		C991C8F4246CFB5200B97659 /* shared.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = shared.framework; path = ../shared/build/bin/ios/debugFramework/shared.framework; sourceTree = "<group>"; };
 		C991C8FE246D222A00B97659 /* Userx.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Userx.swift; sourceTree = "<group>"; };
@@ -122,8 +118,6 @@
 				F861D7E7207FA4100085E80D /* Assets.xcassets */,
 				F861D7E9207FA4100085E80D /* LaunchScreen.storyboard */,
 				F861D7EC207FA4100085E80D /* Info.plist */,
-				2614C5F424553F940035CD4C /* Person.swift */,
-				2614C5F6245540660035CD4C /* DBHelper.swift */,
 				C991C8FE246D222A00B97659 /* Userx.swift */,
 			);
 			path = iosApp;
@@ -260,11 +254,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2614C5F524553F940035CD4C /* Person.swift in Sources */,
 				F861D7E3207FA40F0085E80D /* ViewController.swift in Sources */,
 				C991C8FF246D222A00B97659 /* Userx.swift in Sources */,
 				F861D7E1207FA40F0085E80D /* AppDelegate.swift in Sources */,
-				2614C5F7245540660035CD4C /* DBHelper.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

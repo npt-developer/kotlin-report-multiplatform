@@ -15,32 +15,38 @@ class ViewController: UIViewController, UITableViewDataSource
 
     @IBOutlet weak var myTable: UITableView!
     
+    var myArray: [Userx] = []
+    
     let cellReuseIdentifier = "CELL"
     
-    var db:DBHelper = DBHelper()
-    
-    var persons:[Person] = []
     override func viewDidLoad() {
         super.viewDidLoad()
         myTable.dataSource = self
         
-        myTable.register(UITableViewCell.self, forCellReuseIdentifier: cellReuseIdentifier)
-        db.insert(id: 1, name: "Tran Huu Hien", age: 30)
-        db.insert(id: 2, name: "Nguyen Phong Thuy", age: 25)
-        persons = db.read()
+        let uDao = UserDao()
+        uDao.insertUserx(name: "Tran Huu HIen ios", sex: "1")
+        uDao.insertUserx(name: "Nguyen phong thuy ios", sex: "1")
+        
+        let users = uDao.getUserList(offset: 0, limit: 1000)
+        
+        users.forEach { user in
+            print(user)
+            let u = Userx()
+            u.name = user.name
+            u.sex = user.sex.value == 1 ? "Nam" : "Nữ"
+            u.avatar = user.avatar!
+            myArray.append(u)
+        }
  
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        //return 5
-       return persons.count
+       return myArray.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        //tableView.reloadData()
         let cell = tableView.dequeueReusableCell(withIdentifier: cellReuseIdentifier)
-        cell?.textLabel?.text = "Name: " + persons[indexPath.row].name + ", " + "Age: " + String(persons[indexPath.row].age)
-        //cell?.textLabel?.text = "Hello"
+        cell?.textLabel?.text = "Name: " + myArray[indexPath.row].name + ".  Sex: " + myArray[indexPath.row].sex
         
         return cell!
     }
