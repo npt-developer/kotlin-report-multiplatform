@@ -20,15 +20,3 @@ actual object Factory {
 
     actual val platform: String = "android"
 }
-
-actual class Userx {
-    actual var id: String
-        get() = TODO("not implemented") //To change initializer of created properties use File | Settings | File Templates.
-        set(value) {}
-    actual var name: String
-        get() = TODO("not implemented") //To change initializer of created properties use File | Settings | File Templates.
-        set(value) {}
-    actual var sex: String
-        get() = TODO("not implemented") //To change initializer of created properties use File | Settings | File Templates.
-        set(value) {}
-}
