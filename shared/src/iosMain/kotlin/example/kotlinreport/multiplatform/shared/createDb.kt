@@ -1,7 +1,6 @@
-package example.kotlinreport.multiplatform.shared.db
+package example.kotlinreport.multiplatform.shared
 
 import com.squareup.sqldelight.drivers.ios.NativeSqliteDriver
-import example.kotlinreport.multiplatform.shared.MyDatabase
 import example.kotlinreport.multiplatform.shared.config.AppConfig
 
 actual fun createDb(): MyDatabase {
