@@ -18,7 +18,6 @@ import example.kotlinreport.multiplatform.shared.myAppContext
 import example.kotlinreport.multiplatform.shared.model.SexType
 import example.kotlinreport.multiplatform.shared.model.User
 import java.util.*
-import kotlin.collections.ArrayList
 
 class MainActivity : AppCompatActivity(),
     SwipeRefreshLayout.OnRefreshListener {
@@ -76,7 +75,7 @@ class MainActivity : AppCompatActivity(),
     }
 
     private fun initRecyclerView() {
-        mUsers = this.mUserDao.getUserList(mPaginator.getOffset(), mPaginator.mPageSize)
+        mUsers = ArrayList(this.mUserDao.getUserList(mPaginator.getOffset(), mPaginator.mPageSize))
         Log.d("Users", mUsers.size.toString())
         if (mPaginator.hasNextPage()) {
             mPaginator.mPage++
@@ -120,7 +119,7 @@ class MainActivity : AppCompatActivity(),
             if (!mSwipeRefreshLayoutMain.isRefreshing) {
                 mUserAdapter.closeLoading()
             }
-            val users = this.mUserDao.getUserList(mPaginator.getOffset(), mPaginator.mPageSize)
+            val users = ArrayList(this.mUserDao.getUserList(mPaginator.getOffset(), mPaginator.mPageSize))
             Log.d("addAllUser", users.size.toString())
             mUserAdapter.addAll(users)
 
