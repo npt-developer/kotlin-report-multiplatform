@@ -28,4 +28,8 @@ class UserDao {
     fun insertUser(user: User): Unit {
         this.mUserQueries.insertItem(user.name, user.sex.value.toShort(), user.avatar!!)
     }
+
+    fun insertUserx(name: String, sex: String){
+        this.mUserQueries.insertItem(name, sex.toShort(), "")
+    }
 }
