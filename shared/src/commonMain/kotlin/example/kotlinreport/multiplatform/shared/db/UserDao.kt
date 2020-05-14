@@ -19,10 +19,8 @@ class UserDao {
         return this.mUserQueries.countUser().executeAsOne()
     }
 
-    fun getUserList(offset: Long, limit: Long): ArrayList<User> {
-            val list: List<User>  = this.mUserQueries.selectAll(limit, offset, mapper = { id, name, sex, avatar -> User(id, name, SexType.valueOf(sex.toInt()), avatar) }).executeAsList();
-
-            return ArrayList(list)
+    fun getUserList(offset: Long, limit: Long): List<User> {
+            return this.mUserQueries.selectAll(limit, offset, mapper = { id, name, sex, avatar -> User(id, name, SexType.valueOf(sex.toInt()), avatar) }).executeAsList();
     }
 
     fun insertUser(user: User): Unit {
