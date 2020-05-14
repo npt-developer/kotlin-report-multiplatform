@@ -12,6 +12,7 @@
 		2614C5FA24555A420035CD4C /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 2614C5F924555A310035CD4C /* libsqlite3.tbd */; };
 		C991C8F5246CFB5200B97659 /* shared.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C991C8F4246CFB5200B97659 /* shared.framework */; };
 		C991C8F6246CFB5200B97659 /* shared.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C991C8F4246CFB5200B97659 /* shared.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C991C8FF246D222A00B97659 /* Userx.swift in Sources */ = {isa = PBXBuildFile; fileRef = C991C8FE246D222A00B97659 /* Userx.swift */; };
 		F861D7E1207FA40F0085E80D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F861D7E0207FA40F0085E80D /* AppDelegate.swift */; };
 		F861D7E3207FA40F0085E80D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F861D7E2207FA40F0085E80D /* ViewController.swift */; };
 		F861D7E6207FA40F0085E80D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F861D7E4207FA40F0085E80D /* Main.storyboard */; };
@@ -49,6 +50,7 @@
 		2614C5F6245540660035CD4C /* DBHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DBHelper.swift; sourceTree = "<group>"; };
 		2614C5F924555A310035CD4C /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
 		C991C8F4246CFB5200B97659 /* shared.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = shared.framework; path = ../shared/build/bin/ios/debugFramework/shared.framework; sourceTree = "<group>"; };
+		C991C8FE246D222A00B97659 /* Userx.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Userx.swift; sourceTree = "<group>"; };
 		F861D7DD207FA40F0085E80D /* iosApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iosApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F861D7E0207FA40F0085E80D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F861D7E2207FA40F0085E80D /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -122,6 +124,7 @@
 				F861D7EC207FA4100085E80D /* Info.plist */,
 				2614C5F424553F940035CD4C /* Person.swift */,
 				2614C5F6245540660035CD4C /* DBHelper.swift */,
+				C991C8FE246D222A00B97659 /* Userx.swift */,
 			);
 			path = iosApp;
 			sourceTree = "<group>";
@@ -259,6 +262,7 @@
 			files = (
 				2614C5F524553F940035CD4C /* Person.swift in Sources */,
 				F861D7E3207FA40F0085E80D /* ViewController.swift in Sources */,
+				C991C8FF246D222A00B97659 /* Userx.swift in Sources */,
 				F861D7E1207FA40F0085E80D /* AppDelegate.swift in Sources */,
 				2614C5F7245540660035CD4C /* DBHelper.swift in Sources */,
 			);
