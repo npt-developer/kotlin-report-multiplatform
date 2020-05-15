@@ -1,43 +1,51 @@
-//
-//  ViewController.swift
-//  iosApp
-//
-//  Created by jetbrains on 12/04/2018.
-//  Copyright © 2018 JetBrains. All rights reserved.
-//
-
 import UIKit
 import shared
 
-class ViewController: UIViewController, UITableViewDataSource
+class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate
 {
     
-
     @IBOutlet weak var myTable: UITableView!
     
     var myArray: [Userx] = []
     
     let cellReuseIdentifier = "CELL"
     
+    var limit: Int64 = 20
+    var offset: Int = 0
+    var totalEntries: Int = 100
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         myTable.dataSource = self
-        
+        myTable.delegate = self
+ 
+//        _insertdata(num: 7)
+        _loaddata(offset: offset, limit: limit)
+    }
+    
+    private func _loaddata(offset: Int, limit: Int64)
+    {
         let uDao = UserDao()
-        uDao.insertUserx(name: "Tran Huu HIen ios", sex: "1")
-        uDao.insertUserx(name: "Nguyen phong thuy ios", sex: "1")
-        
-        let users = uDao.getUserList(offset: 0, limit: 1000)
+        let users = uDao.getUserList(offset: 0, limit: limit)
         
         users.forEach { user in
-            print(user)
+           // print(user)
             let u = Userx()
             u.name = user.name
             u.sex = user.sex.value == 1 ? "Nam" : "Nữ"
             u.avatar = user.avatar!
             myArray.append(u)
         }
- 
+    }
+    
+    private func _insertdata(num: Int)
+    {
+        let uDao = UserDao()
+        
+        for i in 1 ... num {
+            uDao.insertUserx(name: "Tran Huu HIen ios \(i)" , sex: "1")
+            uDao.insertUserx(name: "Nguyen phong thuy ios \(i) ", sex: "1")
+        }
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -46,10 +54,30 @@ class ViewController: UIViewController, UITableViewDataSource
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellReuseIdentifier)
-        cell?.textLabel?.text = "Name: " + myArray[indexPath.row].name + ".  Sex: " + myArray[indexPath.row].sex
+        cell?.textLabel?.text = " \(indexPath.row).  Name: " + myArray[indexPath.row].name + ".  Sex: " + myArray[indexPath.row].sex
         
         return cell!
     }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 60.0
+    }
+    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath){
+        let lastElement = myArray.count - 1
+        if indexPath.row == lastElement {
+            if myArray.count < totalEntries {
+                _loaddata(offset: myArray.count, limit: limit)
+                self.perform(#selector(loadTable), with: nil, afterDelay: 1.5)
+            }
+        }
+    }
+    
+    @objc func loadTable()
+    {
+        self.myTable.reloadData()
+    }
+    
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
