@@ -14,6 +14,24 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     var offset: Int = 0
     var totalEntries: Int = 100
     
+    lazy var rcr: UIRefreshControl = {
+        var rc = UIRefreshControl()
+        rc.tintColor = .black
+        rc.addTarget(self, action: #selector(requestData), for: .valueChanged)
+        
+        return rc
+    }()
+    
+    @objc func requestData() {
+        _resetdata(limit: limit)
+        
+        let deadline = DispatchTime.now() + .milliseconds(3000)
+        
+        DispatchQueue.main.asyncAfter(deadline: deadline) {
+            self.rcr.endRefreshing()
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         myTable.dataSource = self
@@ -21,6 +39,9 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
  
 //        _insertdata(num: 7)
         _loaddata(offset: offset, limit: limit)
+        
+        
+        myTable.refreshControl = rcr
     }
     
     private func _loaddata(offset: Int, limit: Int64)
@@ -36,6 +57,23 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             u.avatar = user.avatar!
             myArray.append(u)
         }
+    }
+    
+    private func _resetdata(limit: Int64)
+    {
+        let uDao = UserDao()
+        let users = uDao.getUserList(offset: 0, limit: limit)
+        myArray = []
+        
+        users.forEach { user in
+           // print(user)
+            let u = Userx()
+            u.name = user.name
+            u.sex = user.sex.value == 1 ? "Nam" : "Nữ"
+            u.avatar = user.avatar!
+            myArray.append(u)
+        }
+        self.perform(#selector(loadTable), with: nil, afterDelay: 1.5)
     }
     
     private func _insertdata(num: Int)
