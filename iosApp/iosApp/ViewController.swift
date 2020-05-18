@@ -54,7 +54,6 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             let u = Userx()
             u.name = user.name
             u.sex = user.sex.value == 1 ? "Nam" : "Nữ"
-            u.avatar = user.avatar!
             myArray.append(u)
         }
     }
@@ -70,7 +69,6 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             let u = Userx()
             u.name = user.name
             u.sex = user.sex.value == 1 ? "Nam" : "Nữ"
-            u.avatar = user.avatar!
             myArray.append(u)
         }
         self.perform(#selector(loadTable), with: nil, afterDelay: 1.5)
@@ -92,7 +90,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellReuseIdentifier)
-        cell?.textLabel?.text = " \(indexPath.row).  Name: " + myArray[indexPath.row].name + ".  Sex: " + myArray[indexPath.row].sex
+        cell?.textLabel?.text = " \(indexPath.row + 1).  Name: " + myArray[indexPath.row].name + ".  Sex: " + myArray[indexPath.row].sex
         
         return cell!
     }

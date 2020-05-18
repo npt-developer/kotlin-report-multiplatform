@@ -11,5 +11,4 @@ class Userx
 {
     var name: String = ""
     var sex: String = ""
-    var avatar: String = ""
 }
