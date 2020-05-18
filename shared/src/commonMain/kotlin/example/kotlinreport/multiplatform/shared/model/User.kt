@@ -3,7 +3,7 @@ import kotlin.jvm.JvmStatic
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class User(var id: Long?, var name: String, var sex: SexType, var avatar: String?) {
+data class User(var id: Long?, var name: String, var sex: SexType) {
 
     companion object {
         @JvmStatic
@@ -14,8 +14,6 @@ data class User(var id: Long?, var name: String, var sex: SexType, var avatar: S
         public val COLUMN_NAME_NAME: String = "name"
         @JvmStatic
         public val COLUMN_SEX_NAME: String = "sex"
-        @JvmStatic
-        public val COLUMN_AVATAR_NAME: String = "avatar"
     }
 }
 
@@ -25,5 +23,12 @@ public enum class SexType(val value: Int) {
 
     companion object {
         fun valueOf(value: Int): SexType  = SexType.values().first { it.value == value }
+        fun getLabel(sex: SexType): String {
+            when (sex) {
+                FEMALE -> return "Female"
+                MALE -> return "Male"
+            }
+            return ""
+        }
     }
 }

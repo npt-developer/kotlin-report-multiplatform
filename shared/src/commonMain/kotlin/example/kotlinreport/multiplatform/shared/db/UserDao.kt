@@ -20,14 +20,14 @@ class UserDao {
     }
 
     fun getUserList(offset: Long, limit: Long): List<User> {
-            return this.mUserQueries.selectAll(limit, offset, mapper = { id, name, sex, avatar -> User(id, name, SexType.valueOf(sex.toInt()), avatar) }).executeAsList();
+            return this.mUserQueries.selectAll(limit, offset, mapper = { id, name, sex -> User(id, name, SexType.valueOf(sex.toInt())) }).executeAsList();
     }
 
     fun insertUser(user: User): Unit {
-        this.mUserQueries.insertItem(user.name, user.sex.value.toShort(), user.avatar!!)
+        this.mUserQueries.insertItem(user.name, user.sex.value.toShort())
     }
 
     fun insertUserx(name: String, sex: String){
-        this.mUserQueries.insertItem(name, sex.toShort(), "")
+        this.mUserQueries.insertItem(name, sex.toShort())
     }
 }

@@ -38,24 +38,8 @@ class MainActivity : AppCompatActivity(),
         initPaginatorUser()
 
         initRefresh()
+//        fakeData()
         initRecyclerView()
-    }
-
-    private fun onActionDelete(user: User, position: Int) {
-        Log.d("onActionUpdate", user.id.toString())
-//        DatabaseManager.deleteUser(this, user)
-//        mUserAdapter.removeItem(position)
-//        Toast.makeText(this, "Deleted user name \"${user.name}\" success", Toast.LENGTH_SHORT).show()
-    }
-
-    private fun onActionUpdate(user: User, position: Int) {
-        Log.d("onActionUpdate", "id:${user.id} - position:${position}")
-
-//        val intentUpdate = Intent(this, UpdateActivity::class.java)
-//        intentUpdate.putExtra("id", user.id)
-//        intentUpdate.putExtra("position", position)
-//        startActivityForResult(intentUpdate, REQUEST_CODE_UPDATE_ACTIVITY)
-
     }
 
     private fun initDatabaseManager() {
@@ -82,13 +66,7 @@ class MainActivity : AppCompatActivity(),
         }
 
         mUserAdapter = object : UserAdapter(mUsers as ArrayList<User?>) {
-            override fun onActionDelete(user: User, position: Int) {
-                this@MainActivity.onActionDelete(user, position)
-            }
 
-            override fun onActionUpdate(user: User, position: Int) {
-                this@MainActivity.onActionUpdate(user, position)
-            }
         }
         mOnLoadMore = object : OnScrollLoadMoreRecyclerViewListener(10) {
             override fun onLoadMore() {
@@ -153,7 +131,7 @@ class MainActivity : AppCompatActivity(),
                 sex = SexType.FEMALE
             }
             this.mUserDao.insertUser(
-                User(null, "Test ${total + i}", sex, "user.jpg")
+                User(null, "Test ${total + i}", sex)
             )
             i++
         }

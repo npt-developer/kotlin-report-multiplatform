@@ -8,12 +8,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
-import com.chauthai.swipereveallayout.SwipeRevealLayout
-import com.chauthai.swipereveallayout.ViewBinderHelper
 import example.kotlinreport.multiplatform.R
 import example.kotlinreport.multiplatform.shared.config.AppConfig
 import example.kotlinreport.multiplatform.shared.model.SexType
@@ -29,16 +28,6 @@ abstract class UserAdapter(var mList: ArrayList<User?>): RecyclerView.Adapter<Re
         @JvmStatic
         private val VIEW_LOADING: Int = 1
     }
-
-    // swipe action
-    var mViewBinderHelper: ViewBinderHelper = ViewBinderHelper()
-
-    init {
-        mViewBinderHelper.setOpenOnlyOne(true)
-    }
-
-    abstract fun onActionDelete(user: User, position: Int)
-    abstract fun onActionUpdate(user: User, position: Int)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         var viewHolder: RecyclerView.ViewHolder
@@ -69,9 +58,6 @@ abstract class UserAdapter(var mList: ArrayList<User?>): RecyclerView.Adapter<Re
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (holder is UserViewHolder) {
             val user: User = mList.get(position)!!
-            // set swipe
-            mViewBinderHelper.bind(holder.mSwipeRevealLayout, user.id.toString())
-            mViewBinderHelper.closeLayout(user.id.toString())
 
             holder.bindView(user)
         } else if (holder is LoadingViewHolder) {
@@ -114,52 +100,20 @@ abstract class UserAdapter(var mList: ArrayList<User?>): RecyclerView.Adapter<Re
     inner class UserViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         // swipe
-        var mSwipeRevealLayout: SwipeRevealLayout
-
-        var mSwipeActionDelete: ImageView
-        var mSwipeActionUpdate: ImageView
+        var mLinearLayout: LinearLayout
         // item
         var mViewContent: ConstraintLayout
         var mTextViewName: TextView
-        var mImageViewAvatar: ImageView
 
         init {
-            mSwipeRevealLayout = itemView.findViewById(R.id.viewHolderUserSwipeRevealLayout)
-            mSwipeActionDelete = itemView.findViewById(R.id.viewHolderUserSwipeImageViewDelete)
-            mSwipeActionUpdate = itemView.findViewById(R.id.viewHolderUserSwipeImageViewUpdate)
+            mLinearLayout = itemView.findViewById(R.id.viewHolderUserLinearLayout)
 
             mViewContent = itemView.findViewById(R.id.viewHolderUserContent)
             mTextViewName = itemView.findViewById(R.id.textViewViewHolderUserName)
-            mImageViewAvatar = itemView.findViewById(R.id.imageViewViewHolderUserAvatar)
         }
 
         fun bindView(user: User) {
-            mTextViewName.text = user.name
-            if (user.avatar != null) {
-                var cw = ContextWrapper(itemView.context.applicationContext)
-                var directory = cw.getDir(AppConfig.User.AVATAR_FOLDER_NAME, Context.MODE_PRIVATE)
-
-                var avataFile = File(directory, user.avatar)
-                if (avataFile.exists()) {
-                    val bitmap = BitmapFactory.decodeStream(FileInputStream(avataFile))
-                    mImageViewAvatar.setImageBitmap(bitmap)
-                }
-            } else {
-                if (user.sex == SexType.MALE) {
-                    mImageViewAvatar.setImageResource(R.drawable.ic_man)
-                } else {
-                    mImageViewAvatar.setImageResource(R.drawable.ic_woman)
-                }
-            }
-
-            mSwipeActionDelete.setOnClickListener { view ->
-                Log.d("action", "delete")
-                this@UserAdapter.onActionDelete(user, layoutPosition)
-            }
-            mSwipeActionUpdate.setOnClickListener { view ->
-                Log.d("action", "update")
-                this@UserAdapter.onActionUpdate(user, layoutPosition)
-            }
+            mTextViewName.text = "Name: " + user.name + ". Sex: " + SexType.getLabel(user.sex)
         }
 
     }
