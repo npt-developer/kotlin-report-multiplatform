@@ -53,7 +53,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
            // print(user)
             let u = Userx()
             u.name = user.name
-            u.sex = user.sex.value == 1 ? "Nam" : "Nữ"
+            u.sex = user.sex.value == 1 ? "Male" : "Female"
             myArray.append(u)
         }
     }
@@ -68,7 +68,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
            // print(user)
             let u = Userx()
             u.name = user.name
-            u.sex = user.sex.value == 1 ? "Nam" : "Nữ"
+            u.sex = user.sex.value == 1 ? "Male" : "Female"
             myArray.append(u)
         }
         self.perform(#selector(loadTable), with: nil, afterDelay: 1.5)
