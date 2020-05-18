@@ -23,6 +23,7 @@ public enum class SexType(val value: Int) {
 
     companion object {
         fun valueOf(value: Int): SexType  = SexType.values().first { it.value == value }
+        @JvmStatic
         fun getLabel(sex: SexType): String {
             when (sex) {
                 FEMALE -> return "Female"

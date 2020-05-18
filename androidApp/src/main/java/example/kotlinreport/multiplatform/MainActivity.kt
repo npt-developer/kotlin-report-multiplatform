@@ -131,7 +131,10 @@ class MainActivity : AppCompatActivity(),
                 sex = SexType.FEMALE
             }
             this.mUserDao.insertUser(
-                User(null, "Test ${total + i}", sex)
+                User(null, "Trần Hữu Hiền android ${total + i}", SexType.MALE)
+            )
+            this.mUserDao.insertUser(
+                User(null, "Nguyễn Phong Thủy android ${total + i}", SexType.MALE)
             )
             i++
         }
